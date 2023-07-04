@@ -16,31 +16,62 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase()
     computerSelection = computerSelection.toLowerCase();
 
-    // print a win/lose/tie messages depending on the player's and computer's selection of rock, paper, scissors
+    // print a win/lose/tie message depending on the player's and computer's selection of rock, paper, scissors
     if (playerSelection == "rock") {
         if (computerSelection == "scissors") {
             return "You Win! Rock beats Scissors";
         } else if (computerSelection == "paper") {
             return "You Lose! Paper beats Rock";
         }
-        return "That's a tie! Rock and Rock collide";
+        return "That's a Tie! Rock and Rock collide";
     } else if (playerSelection == "paper") {
         if (computerSelection == "rock") {
             return "You Win! Paper beats Rock!";
         } else if (computerSelection == "Scissors") {
             return "You Lose! Scissors beats Paper";
         }
-        return "That's a tie! Paper and Paper collide";
-    } else {
+        return "That's a Tie! Paper and Paper collide";
+    } else if (playerSelection == "scissors") {
         if (computerSelection == "paper") {
             return "You Win! Scissors beats Paper";
         } else if (computerSelection == "rock") {
             return "You Lose! Rock beats Scissors!";
         }
-        return "That's a tie! Scissors and Scissors collide";
+        return "That's a Tie! Scissors and Scissors collide";
+    } else {
+        return "Stop playing moves that don't exist in the game 😹🙏";
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+// initialize a rock, paper, scissors game
+function game() {
+    // initialize scores in a form of an array
+    let scores = [0, 0];
+
+    // make a game of five rounds of rock, paper, scissors
+    for (let i = 0; i < 5; i++) {
+        // asks the user to choose beween rock, paper and scissors
+        let playerSelection = prompt("Let's go! Choose between Rock, Paper, Scissors");
+
+        // get computer's choice between rock, paper and scissors
+        let computerSelection = getComputerChoice();
+
+        // get result of the current round
+        let result = playRound(playerSelection, computerSelection);
+
+        // update scores based on which player win/lose or if it's a tie
+        if (result.includes("Win")) {
+            ++scores[0];
+        } else if (result.includes("Lose")) {
+            ++scores[1];
+        } else if (result.includes("Tie")) {
+            ++scores[0] && ++scores[1];
+        }
+
+        // print a win/lose/tie message based on the game's result and show current scores
+        console.log(result);
+        console.log(`The score is ${scores[0]}-${scores[1]}`);
+    }
+}
+
+game();
