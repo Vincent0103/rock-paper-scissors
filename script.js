@@ -45,33 +45,42 @@ function playRound(playerSelection, computerSelection) {
 
 // initialize a rock, paper, scissors game
 function game() {
-    // initialize scores in a form of an array
     let scores = [0, 0];
+    const numberOfRounds = 5;
+    const btns = document.querySelectorAll(".rps-btn");
+    let btnClickable = true;
 
-    // make a game of five rounds of rock, paper, scissors
-    for (let i = 0; i < 5; i++) {
-        // asks the user to choose beween rock, paper and scissors
-        let playerSelection = prompt("Let's go! Choose between Rock, Paper, Scissors");
+    btns.forEach(btn => btn.addEventListener("click", () => {
+        if (btnClickable) {
+            const roundResultMessage = document.querySelector(".result-message");
+            const gameResultMessage = document.querySelector(".result-message");
+            const displayScore = document.querySelector(".score");
+            const currentResultMessage = playRound(btn.textContent, getComputerChoice());
 
-        // get computer's choice between rock, paper and scissors
-        let computerSelection = getComputerChoice();
+            if (currentResultMessage.toLowerCase().includes("win")) scores[0] += 1;
+            else if (currentResultMessage.toLowerCase().includes("lose")) scores[1] += 1;
 
-        // get result of the current round
-        let result = playRound(playerSelection, computerSelection);
+            for (let i = 0; i < scores.length; i++) {
+                if (scores[0] === 5) {
+                    gameResultMessage.textContent = "You win the game!";
+                    btnClickable = false;
 
-        // update scores based on which player win/lose or if it's a tie
-        if (result.includes("Win")) {
-            ++scores[0];
-        } else if (result.includes("Lose")) {
-            ++scores[1];
-        } else if (result.includes("Tie")) {
-            ++scores[0] && ++scores[1];
+                } else if (scores[1] === 5) {
+                    gameResultMessage.textContent = "You lose! Try again later";
+                    btnClickable = false;
+
+                } else roundResultMessage.textContent = currentResultMessage;
+            }
+
+            displayScore.textContent = scores[0] + " - " + scores[1];
+
         }
+    }))
 
-        // print a win/lose/tie message based on the game's result and show current scores
-        console.log(result);
-        console.log(`The score is ${scores[0]}-${scores[1]}`);
-    }
+
 }
 
-game();
+window.addEventListener("DOMContentLoaded", () => {
+    game();
+})
+
