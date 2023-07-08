@@ -1,0 +1,67 @@
+
+.rps-div {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10% 0px;
+}
+
+.rps-btn {
+    padding: 20px 50px;
+    font-family: 'Belanosima', sans-serif;
+    font-size: 2em;
+    background-color: rgb(120, 66, 46);
+    border-radius: 7px;
+    border-color: rgba(120, 66, 46, 0.5);
+    color: #f1bb87;
+    transition: all 200ms ease-out;
+}
+
+.try-again-btn {
+    padding: 10px 30px;
+    background: linear-gradient(rgb(28, 28, 28), rgb(59, 59, 59));
+    color: rgba(253, 246, 228, .5);
+    border-radius: 7px;
+    border-color: rgba(28, 28, 28, .4);
+    margin: 0 auto;
+    transition: all 200ms ease-out;
+}
+
+.try-again-btn:hover {
+    cursor: pointer;
+    background: linear-gradient(rgb(28, 28, 28), rgb(59, 59, 59));
+    box-shadow: 0 0 6px rgba(28, 28, 28, .4);
+    font-size: .5em;
+}
+
+.rps-btn:hover {
+    box-shadow: 0 0 6px rgb(241,187,135);
+    background-color: rgb(132, 72, 50);
+    color: #f7ef99;
+    cursor: pointer;
+    /* padding: 20px 45px; */
+    font-size: 2.3em;
+}
+
+.active {
+    display: block;
+}
+
+.inactive {
+    display: none;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(rgba(27, 27, 27, .7), rgba(27, 27, 27, .7)), url("scenic_landscape_hd.jpg");
+}
+
+.result {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    color: rgba(247,142,105, .8);
+    text-shadow: black 10px;
+}

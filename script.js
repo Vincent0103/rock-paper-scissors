@@ -48,36 +48,62 @@ function game() {
     let scores = [0, 0];
     const numberOfRounds = 5;
     const btns = document.querySelectorAll(".rps-btn");
+    const tryAgainBtn = document.querySelector(".try-again-btn");
+
+    // get the paragraph to put the final result of the rps game
+    const gameResultMessage = document.querySelector(".result-message");
+
+    const displayScore = document.querySelector(".score");
     let btnClickable = true;
 
     btns.forEach(btn => btn.addEventListener("click", () => {
         if (btnClickable) {
+            // get the paragraph to display the result of the current round
             const roundResultMessage = document.querySelector(".result-message");
-            const gameResultMessage = document.querySelector(".result-message");
-            const displayScore = document.querySelector(".score");
+
+            // get the current result from the rps round
             const currentResultMessage = playRound(btn.textContent, getComputerChoice());
 
+            // check if the result message contains win or lose to attribute a point to one of the player
             if (currentResultMessage.toLowerCase().includes("win")) scores[0] += 1;
             else if (currentResultMessage.toLowerCase().includes("lose")) scores[1] += 1;
 
             for (let i = 0; i < scores.length; i++) {
-                if (scores[0] === 5) {
-                    gameResultMessage.textContent = "You win the game!";
+                // check if the one of the players went to 5 points and finish the game
+                if (scores[i] === 5) {
                     btnClickable = false;
 
-                } else if (scores[1] === 5) {
-                    gameResultMessage.textContent = "You lose! Try again later";
-                    btnClickable = false;
+                    tryAgainBtn.classList.remove("inactive");
+                    tryAgainBtn.classList.add("active");
 
-                } else roundResultMessage.textContent = currentResultMessage;
+                    if (scores[0] === 5) {
+                        gameResultMessage.textContent = "You win the game!";
+                        break;
+
+                    } else if (scores[1] === 5) {
+                        gameResultMessage.textContent = "You lose! Try again later";
+                        break;
+                    }
+
+                } else {
+                    roundResultMessage.textContent = currentResultMessage;
+                }
             }
 
             displayScore.textContent = scores[0] + " - " + scores[1];
-
         }
     }))
 
-
+    // try again button shows up when game's finished and onclick restarts the game
+    tryAgainBtn.addEventListener("click", () => {
+        if (tryAgainBtn.classList.contains("active")) {
+            tryAgainBtn.classList.remove("active");
+            tryAgainBtn.classList.add("inactive");
+            gameResultMessage.textContent = "";
+            displayScore.textContent = "";
+            game();
+        }
+    })
 }
 
 window.addEventListener("DOMContentLoaded", () => {
